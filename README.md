@@ -29,4 +29,5 @@ The repository for the course CEF440: INTERNET PROGRAMMING (J2EE) AND MOBILE PRO
             <td>MBUA SEDRICK GOBINA</td>
             <td>FE21A233</td>
         </tr>
+    </tbody>
 </table>
