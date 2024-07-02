@@ -1,6 +1,6 @@
 # cam_we_go
 
-A new Flutter project.
+A road sign and road state mobile notification application.
 
 ## Getting Started
 

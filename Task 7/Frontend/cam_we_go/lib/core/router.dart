@@ -30,19 +30,23 @@ final GoRouter router = GoRouter(
   routes: [
     GoRoute(
       path: '/onboarding',
-      builder: (context, state) => const OnboardingPage(),
+      pageBuilder: (context, state) =>
+          customFadeInTransition(state, const OnboardingPage()),
     ),
     GoRoute(
       path: '/login',
-      builder: (context, state) => const Login(),
+      pageBuilder: (context, state) =>
+          customSlideInTransition(state, const Login()),
     ),
     GoRoute(
       path: '/register',
-      builder: (context, state) => const Register(),
+      pageBuilder: (context, state) =>
+          customSlideInTransition(state, const Register()),
     ),
     GoRoute(
       path: '/reset_password',
-      builder: (context, state) => const ResetPassword(),
+      pageBuilder: (context, state) =>
+          customSlideInTransition(state, const ResetPassword()),
     ),
     ShellRoute(
       navigatorKey: _shellNavigatorKey,
@@ -61,9 +65,24 @@ final GoRouter router = GoRouter(
           ],
         ),
         GoRoute(
-            path: '/search_view_road_signs',
-            pageBuilder: (context, state) =>
-                customFadeInTransition(state, const SearchViewRoadSigns())),
+          path: '/search_view_road_signs',
+          pageBuilder: (context, state) =>
+              customFadeInTransition(state, const SearchViewRoadSigns()),
+          routes: [
+            GoRoute(
+              path: 'road_sign_info',
+              parentNavigatorKey: _rootNavigatorKey,
+              pageBuilder: (context, state) =>
+                  customSlideInTransition(state, const RoadSignInfo()),
+            ),
+            GoRoute(
+              path: 'road_state_info',
+              parentNavigatorKey: _rootNavigatorKey,
+              pageBuilder: (context, state) =>
+                  customSlideInTransition(state, const RoadStateInfo()),
+            ),
+          ],
+        ),
         GoRoute(
           path: '/settings',
           pageBuilder: (context, state) =>
@@ -102,16 +121,6 @@ final GoRouter router = GoRouter(
           ],
         ),
       ],
-    ),
-    GoRoute(
-      path: '/road_sign_info',
-      pageBuilder: (context, state) =>
-          customSlideInTransition(state, const RoadSignInfo()),
-    ),
-    GoRoute(
-      path: '/road_state_info',
-      pageBuilder: (context, state) =>
-          customSlideInTransition(state, const RoadStateInfo()),
     ),
   ],
 );

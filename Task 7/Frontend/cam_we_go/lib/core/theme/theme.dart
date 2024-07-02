@@ -39,6 +39,28 @@ ThemeData myTheme() {
       ),
       labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
     ),
+    inputDecorationTheme: InputDecorationTheme(
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+        borderSide: const BorderSide(color: normal),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+        borderSide: const BorderSide(color: normal),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+        borderSide: const BorderSide(color: normalHover),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+        borderSide: const BorderSide(color: Colors.red),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+        borderSide: const BorderSide(color: Colors.red),
+      ),
+    ),
   );
 }
 
@@ -53,6 +75,7 @@ ColorScheme lightTheme() {
     onPrimary: Colors.white,
     onSecondary: Colors.white,
     onSurface: Colors.black,
+    surfaceDim: darker,
     onError: Colors.white,
     brightness: Brightness.light,
   );
