@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/extensions.dart';
+
 class Home extends StatelessWidget {
   const Home({super.key});
 
@@ -7,7 +9,12 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isExtended = false;
     return Scaffold(
-      body: const Center(child: Text('Home', style: TextStyle(fontSize: 20))),
+      body: Stack(
+        children: [
+          const Center(child: Text('Home')),
+          _buildBottomSheetSmall(context, isExtended),
+        ],
+      ),
       floatingActionButton: _buildFABs(isExtended),
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
     );
@@ -19,7 +26,7 @@ class Home extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildSecondFAB(isExtended),
-        const SizedBox(height: 10),
+        SizedBox(height: 1.h),
         _buildFirstFAB(isExtended),
       ],
     );
@@ -49,6 +56,23 @@ class Home extends StatelessWidget {
 
   void _onPressed() {
     debugPrint('Pressed');
+  }
+
+  Widget _buildBottomSheetSmall(BuildContext context, bool isExtended) {
+    return Visibility(
+      visible: !isExtended,
+      child: Container(
+        width: double.infinity,
+        height: 5.h,
+        color: Colors.black,
+        child: TextButton(
+          onPressed: () {
+            _buildBottomSheet(context);
+          },
+          child: const Text('BottomSheet'),
+        ),
+      ),
+    );
   }
 
   void _buildBottomSheet(BuildContext context) {
