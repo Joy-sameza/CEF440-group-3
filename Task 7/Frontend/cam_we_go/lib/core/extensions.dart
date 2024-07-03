@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 import 'utils/constants.dart';
@@ -27,6 +29,23 @@ extension MediaQueryExtension on BuildContext {
   double get screenHeight => screenSize.height;
   double get screenHeightWithoutStatusBar =>
       screenHeight - mediaQuery.padding.top;
+  double get statusBarHeight => mediaQuery.padding.top;
+  double get bottomBarHeight => mediaQuery.padding.bottom;
+  double get devicePixelRatio => mediaQuery.devicePixelRatio;
+}
+
+extension AdaptiveExt on num {
+  double get h =>
+      this <= 100 && this >= 0 ? this * _Adaptive.height / 100 : toDouble();
+  double get w =>
+      this <= 100 && this >= 0 ? this * _Adaptive.width / 100 : toDouble();
+  double get dp => this * _Adaptive.devicePixelRatio;
+}
+
+class _Adaptive {
+  static double width = window.physicalSize.width;
+  static double height = window.physicalSize.height;
+  static double devicePixelRatio = window.devicePixelRatio;
 }
 
 extension GapSize on Gap {

@@ -103,7 +103,7 @@ class Heading extends StatelessWidget {
     return Text(
       title,
       textAlign: alignment,
-      style: context.textTheme.headlineLarge!
+      style: context.textTheme.headlineSmall!
           .copyWith(color: context.surfaceDim),
     );
   }

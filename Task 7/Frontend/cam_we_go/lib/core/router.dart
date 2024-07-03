@@ -14,8 +14,8 @@ import '../presentation/pages/nav_rail/settings/sub/edit_profile.dart';
 import '../presentation/pages/nav_rail/settings/sub/my_preferences.dart';
 import '../presentation/pages/nav_rail/settings/sub/post_crash_care.dart';
 import '../presentation/pages/nav_rail/settings/sub/report.dart';
-import '../presentation/pages/shared/road_sign_info.dart';
-import '../presentation/pages/shared/road_state_info.dart';
+import '../presentation/pages/nav_rail/search_view/sub/road_sign_info.dart';
+import '../presentation/pages/nav_rail/search_view/sub/road_state_info.dart';
 import '../presentation/widgets/scaffold_with_nav_bar.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey =
