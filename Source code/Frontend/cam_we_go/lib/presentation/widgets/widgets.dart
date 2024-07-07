@@ -4,34 +4,7 @@ import 'package:cam_we_go/core/extensions.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/utils/constants.dart';
-
-// class Sam extends StatefulWidget {
-//   const Sam({super.key});
-
-//   @override
-//   State<Sam> createState() => _SamState();
-// }
-
-// class _SamState extends State<Sam> with SingleTickerProviderStateMixin {
-//   late AnimationController _controller;
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     _controller = AnimationController(vsync: this);
-//   }
-
-//   @override
-//   void dispose() {
-//     _controller.dispose();
-//     super.dispose();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return const Placeholder();
-//   }
-// }
+import '../../core/theme/colors.dart';
 
 class Button extends StatelessWidget {
   const Button({
@@ -68,7 +41,7 @@ class Button extends StatelessWidget {
     required FutureOr<void> Function() onTap,
     required BuildContext context,
     required String label,
-    required Icon icon,
+    required Widget icon,
     required Gap gap,
   }) {
     return ElevatedButton(
@@ -82,6 +55,33 @@ class Button extends StatelessWidget {
           icon,
           SizedBox(width: gap.narrow),
           Text(label),
+        ],
+      ),
+    );
+  }
+
+  static ElevatedButton outlinedBorderWithIcon({
+    required VoidCallback onTap,
+    required String label,
+    required Icon icon,
+  }) {
+    return ElevatedButton(
+      onPressed: onTap,
+      style: ElevatedButton.styleFrom(
+        foregroundColor: Colors.black,
+        backgroundColor: Colors.black.withOpacity(0),
+        shape: const RoundedRectangleBorder(
+          side: BorderSide(color: normal)
+        )
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            label,
+            style: const TextStyle(fontSize: 14),
+          ),
+          icon,
         ],
       ),
     );
@@ -117,7 +117,8 @@ class InputField {
     required String label,
     required String hintText,
     String? Function(String?)? validator,
-    required TextEditingController controller,
+    TextEditingController? controller,
+    void Function(String?)? onSaved,
     required InputType type,
     bool isFinal = false,
   }) {
@@ -141,6 +142,7 @@ class InputField {
             : null,
       ),
       validator: validator,
+      onSaved: onSaved,
     );
   }
 }

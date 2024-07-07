@@ -19,6 +19,7 @@ extension ThemeExtension on BuildContext {
   Color get surfaceDim => colorScheme.surfaceDim;
   Color get errorColor => colorScheme.error;
   Color get onErrorColor => colorScheme.onError;
+  Color get primaryContainer => colorScheme.primaryContainer;
 }
 
 extension MediaQueryExtension on BuildContext {
