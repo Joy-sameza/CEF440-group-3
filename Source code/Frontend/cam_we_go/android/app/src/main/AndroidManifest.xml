@@ -20,6 +20,10 @@
               android:name="io.flutter.embedding.android.NormalTheme"
               android:resource="@style/NormalTheme"
               />
+            <!-- START: GOOGLE MAPS API KEY -->
+            <meta-data android:name="com.google.android.geo.API_KEY"
+                android:value="YOUR KEY HERE"/>
+            <!-- END: GOOGLE MAPS API KEY -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>

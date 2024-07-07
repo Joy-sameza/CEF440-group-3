@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../presentation/pages/auth/login.dart';
 import '../presentation/pages/auth/register.dart';
 import '../presentation/pages/auth/reset_password.dart';
+import '../presentation/pages/nav_rail/home/sub/navigation_page.dart';
 import '../presentation/pages/onboarding_page.dart';
 import '../presentation/pages/nav_rail/home/home.dart';
 import '../presentation/pages/nav_rail/home/sub/more_route_details.dart';
@@ -62,6 +63,12 @@ final GoRouter router = GoRouter(
                 parentNavigatorKey: _rootNavigatorKey,
                 pageBuilder: (context, state) =>
                     customSlideInTransition(state, const MoreRouteDetails())),
+            GoRoute(
+              path: 'navigation_page',
+              parentNavigatorKey: _rootNavigatorKey,
+              pageBuilder: (context, state) =>
+                  customFadeInTransition(state, const NavigationPage()),
+            ),
           ],
         ),
         GoRoute(

@@ -40,6 +40,7 @@ ThemeData myTheme() {
       labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
     ),
     inputDecorationTheme: InputDecorationTheme(
+      labelStyle: const TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
         borderSide: const BorderSide(color: normal),

@@ -53,3 +53,9 @@ extension GapSize on Gap {
   double get narrow => 5;
   double get wide => 15;
 }
+
+extension StringExtension on String {
+  String get capitalized {
+    return "${this[0].toUpperCase()}${substring(1)}";
+  }
+}

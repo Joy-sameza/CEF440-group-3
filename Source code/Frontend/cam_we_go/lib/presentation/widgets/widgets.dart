@@ -5,33 +5,48 @@ import 'package:flutter/material.dart';
 
 import '../../core/utils/constants.dart';
 
-// class Sam extends StatefulWidget {
-//   const Sam({super.key});
+class Sam extends StatefulWidget {
+  const Sam({super.key, this.dy});
+  final double? dy;
 
-//   @override
-//   State<Sam> createState() => _SamState();
-// }
+  @override
+  State<Sam> createState() => _SamState();
+}
 
-// class _SamState extends State<Sam> with SingleTickerProviderStateMixin {
-//   late AnimationController _controller;
+class _SamState extends State<Sam> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<Offset> _offsetAnimation;
 
-//   @override
-//   void initState() {
-//     super.initState();
-//     _controller = AnimationController(vsync: this);
-//   }
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(microseconds: 300),
+    );
 
-//   @override
-//   void dispose() {
-//     _controller.dispose();
-//     super.dispose();
-//   }
+    _offsetAnimation = Tween<Offset>(
+      begin: Offset.zero,
+      end: Offset(0, widget.dy ?? -30.h),
+    ).animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeOut,
+    ));
+  }
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return const Placeholder();
-//   }
-// }
+  
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}
 
 class Button extends StatelessWidget {
   const Button({
@@ -43,7 +58,7 @@ class Button extends StatelessWidget {
   });
 
   final BuildContext context;
-  final FutureOr<void> Function() onTap;
+  final VoidCallback onTap;
   final String label;
   final Size size;
 
@@ -70,14 +85,26 @@ class Button extends StatelessWidget {
     required String label,
     required Icon icon,
     required Gap gap,
+    Color? backgroundColor,
+    Color? foregroundColor,
+    double? fontSize,
+    Size? size,
   }) {
     return ElevatedButton(
       onPressed: onTap,
       style: ElevatedButton.styleFrom(
-        backgroundColor: context.primaryColor,
-        foregroundColor: Colors.black,
+        backgroundColor: backgroundColor ?? context.primaryColor,
+        foregroundColor: foregroundColor ?? Colors.black,
+        fixedSize: size,
+        textStyle: context.textTheme.bodyLarge!.copyWith(
+          fontSize: fontSize,
+        ),
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10))),
+        elevation: 3,
       ),
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
           icon,
           SizedBox(width: gap.narrow),
@@ -103,8 +130,8 @@ class Heading extends StatelessWidget {
     return Text(
       title,
       textAlign: alignment,
-      style: context.textTheme.headlineSmall!
-          .copyWith(color: context.surfaceDim),
+      style:
+          context.textTheme.headlineSmall!.copyWith(color: context.surfaceDim),
     );
   }
 }
@@ -117,13 +144,15 @@ class InputField {
     required String label,
     required String hintText,
     String? Function(String?)? validator,
-    required TextEditingController controller,
     required InputType type,
+    void Function(String?)? onSaved,
+    String? initialValue,
     bool isFinal = false,
+    bool readOnly = false,
   }) {
     return TextFormField(
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      controller: controller,
+      initialValue: initialValue,
       keyboardType: _toTextInputType(type),
       obscureText: type == InputType.password,
       textCapitalization: type == InputType.text || type == InputType.report
@@ -140,6 +169,8 @@ class InputField {
             ? const Icon(Icons.remove_red_eye)
             : null,
       ),
+      readOnly: readOnly,
+      onSaved: onSaved,
       validator: validator,
     );
   }
