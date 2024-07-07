@@ -7,8 +7,7 @@ abstract final class Constants {}
 
 final class Images implements Constants {
   static const String logo = 'assets/images/logo.png';
-  static const String introductionImage =
-      'assets/images/introduction_image.png';
+  static const String introductionImage ='assets/images/introduction_image.png';
 }
 
 final class ButtonSize implements Constants {
@@ -24,7 +23,10 @@ final class AppIcons implements Constants {
   static const String pageControl = _basePath + 'page_control$_extension';
   // ignore: prefer_interpolation_to_compose_strings
   static const String distance = _basePath + 'distance$_extension';
-
+  // ignore: prefer_interpolation_to_compose_strings
+  static const String googleLogo = _basePath + 'google_logo$_extension';
+  // ignore: prefer_interpolation_to_compose_strings
+  static const String cameroonFlag = _basePath + 'cameroon$_extension';
   static final Size _adaptiveIconSize = Size(2.8.w, 1.3.h);
 
   static buildSVG(String path) {
