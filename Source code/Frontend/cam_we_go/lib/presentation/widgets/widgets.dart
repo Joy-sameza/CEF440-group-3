@@ -58,7 +58,7 @@ class Button extends StatelessWidget {
   });
 
   final BuildContext context;
-  final FutureOr<void> Function() onTap;
+  final VoidCallback onTap;
   final String label;
   final Size size;
 
@@ -85,14 +85,26 @@ class Button extends StatelessWidget {
     required String label,
     required Icon icon,
     required Gap gap,
+    Color? backgroundColor,
+    Color? foregroundColor,
+    double? fontSize,
+    Size? size,
   }) {
     return ElevatedButton(
       onPressed: onTap,
       style: ElevatedButton.styleFrom(
-        backgroundColor: context.primaryColor,
-        foregroundColor: Colors.black,
+        backgroundColor: backgroundColor ?? context.primaryColor,
+        foregroundColor: foregroundColor ?? Colors.black,
+        fixedSize: size,
+        textStyle: context.textTheme.bodyLarge!.copyWith(
+          fontSize: fontSize,
+        ),
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10))),
+        elevation: 3,
       ),
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
           icon,
           SizedBox(width: gap.narrow),
@@ -132,14 +144,14 @@ class InputField {
     required String label,
     required String hintText,
     String? Function(String?)? validator,
-    // required TextEditingController controller,
     required InputType type,
+    void Function(String?)? onSaved,
     String? initialValue,
     bool isFinal = false,
+    bool readOnly = false,
   }) {
     return TextFormField(
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      // controller: controller,
       initialValue: initialValue,
       keyboardType: _toTextInputType(type),
       obscureText: type == InputType.password,
@@ -157,6 +169,8 @@ class InputField {
             ? const Icon(Icons.remove_red_eye)
             : null,
       ),
+      readOnly: readOnly,
+      onSaved: onSaved,
       validator: validator,
     );
   }

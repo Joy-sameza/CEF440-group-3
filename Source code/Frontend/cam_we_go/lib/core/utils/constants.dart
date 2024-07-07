@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../extensions.dart';
+
 abstract final class Constants {}
 
 final class Images implements Constants {
@@ -23,13 +25,19 @@ final class AppIcons implements Constants {
   // ignore: prefer_interpolation_to_compose_strings
   static const String distance = _basePath + 'distance$_extension';
 
+  static final Size _adaptiveIconSize = Size(2.8.w, 1.3.h);
+
   static buildSVG(String path) {
     return SvgPicture.asset(
       path,
-      width: 24,
-      height: 24,
+      width: _adaptiveIconSize.width,
+      height: _adaptiveIconSize.height,
       color: Colors.black,
     );
+  }
+
+  static Icon buildIcon(IconData iconData) {
+    return Icon(iconData, size: 24, applyTextScaling: true);
   }
 }
 

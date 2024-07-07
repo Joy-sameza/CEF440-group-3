@@ -4,6 +4,7 @@ import 'package:cam_we_go/core/theme/theme.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const CamWeGo());
 }
 

@@ -29,7 +29,7 @@ class OnboardingPage extends StatelessWidget {
                   Button(
                     context: context,
                     label: 'Get Started',
-                    onTap: () => context.go('/home'),
+                    onTap: () => context.pushReplacement('/login'),
                     size: ButtonSize.medium,
                   ),
                 ],

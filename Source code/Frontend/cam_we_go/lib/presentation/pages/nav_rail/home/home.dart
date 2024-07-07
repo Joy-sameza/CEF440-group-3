@@ -1,7 +1,9 @@
 import 'package:cam_we_go/core/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/extensions.dart';
+import '../../../widgets/widgets.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -116,70 +118,136 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   }
 
   void _showBottomSheet(BuildContext context, double height) {
+    GlobalKey<FormState> _formKey = GlobalKey(debugLabel: 'navigationForm');
     _controller.forward();
     setState(() => isExtended = false);
-    print(2.h);
+    String? fromDestination = 'UB Junction';
+    String? toDestination;
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
-        final TextEditingController fromController = TextEditingController();
-        final TextEditingController toController = TextEditingController();
         return SizedBox(
-            height: height,
-            width: double.infinity,
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 0.5.h, horizontal: 3.w),
-              child: Column(
-                children: [
-                  Container(
-                    width: 15.w,
-                    height: 0.5.h,
-                    decoration: BoxDecoration(
-                      color: context.primaryColor,
-                      borderRadius: const BorderRadius.horizontal(
-                        left: Radius.circular(5),
-                        right: Radius.circular(5),
+          height: height,
+          width: double.infinity,
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 0.5.h, horizontal: 3.w),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 10.w,
+                  height: 0.5.h,
+                  decoration: BoxDecoration(
+                    color: context.primaryColor,
+                    borderRadius: const BorderRadius.horizontal(
+                      left: Radius.circular(5),
+                      right: Radius.circular(5),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 0.5.h),
+                Column(
+                  children: [
+                    Text(
+                      'Plan Route',
+                      style: context.textTheme.headlineSmall!.copyWith(
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                  ),
-                  SizedBox(height: 0.5.h),
-                  Container(
-                    child: Column(
-                      children: [
-                        Text(
-                          'Plan Route',
-                          style: context.textTheme.headlineSmall!
-                              .copyWith(fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(height: 2.h),
-                        Form(
-                            child: Row(
-                          children: [
-                            Column(
-                              children: [
-                                const Icon(Icons.my_location_outlined),
-                                SizedBox(height: 0.5.h),
-                                RotatedBox(
-                                  quarterTurns: 1,
-                                  child:
-                                      AppIcons.buildSVG(AppIcons.pageControl),
+                    SizedBox(height: 2.h),
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              AppIcons.buildIcon(Icons.my_location_outlined),
+                              const SizedBox(width: 6),
+                              Flexible(
+                                child: InputField.text(
+                                  context: context,
+                                  label: 'From',
+                                  hintText: '',
+                                  readOnly: true,
+                                  type: InputType.text,
+                                  initialValue: fromDestination,
                                 ),
-                                SizedBox(height: 0.5.h),
-                                AppIcons.buildSVG(AppIcons.distance),
-                              ],
-                            ),
-                            const SizedBox(width: 6),
-                            Column(
-
-                            )
-                          ],
-                        )),
-                      ],
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              RotatedBox(
+                                quarterTurns: 1,
+                                child: AppIcons.buildSVG(AppIcons.pageControl),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              AppIcons.buildSVG(AppIcons.distance),
+                              const SizedBox(width: 6),
+                              Flexible(
+                                child: InputField.text(
+                                  context: context,
+                                  label: 'To',
+                                  hintText: '',
+                                  type: InputType.text,
+                                  onSaved: (value) {
+                                    toDestination = value;
+                                  },
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Enter destination';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 1.h),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Button.icon(
+                                onTap: () {},
+                                context: context,
+                                label: 'Route Info',
+                                icon: const Icon(Icons.info_outline),
+                                gap: Gap.narrow,
+                                foregroundColor: Colors.white,
+                              ),
+                              Button.icon(
+                                onTap: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    _formKey.currentState!.save();
+                                  }
+                                  context.push(
+                                    '/home/navigation_page',
+                                    extra: <String, String>{
+                                      'from': fromDestination!,
+                                      'to': toDestination!,
+                                    },
+                                  );
+                                },
+                                context: context,
+                                label: 'Navigate',
+                                icon: const Icon(Icons.navigation_outlined),
+                                gap: Gap.narrow,
+                                foregroundColor: Colors.white,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ));
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
       },
     ).whenComplete(() => _controller.reverse());
   }
