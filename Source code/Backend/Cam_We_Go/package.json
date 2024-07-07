@@ -1,0 +1,33 @@
+{
+  "name": "cam_we_go",
+  "version": "1.0.0",
+  "description": "A road sign and road state mobile notification application.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Joy-sameza/CEF440-group-3.git"
+  },
+  "keywords": [
+    "road-Signs",
+    "road-State",
+    "road-Safety"
+  ],
+  "author": "JohnnyPoks, Joy-sameza",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Joy-sameza/CEF440-group-3/issues"
+  },
+  "homepage": "https://github.com/Joy-sameza/CEF440-group-3#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.4.4",
+    "morgan": "^1.10.0"
+  }
+}
