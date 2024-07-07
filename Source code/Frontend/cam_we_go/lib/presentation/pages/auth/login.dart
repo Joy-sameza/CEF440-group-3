@@ -100,21 +100,3 @@ class Login extends StatelessWidget {
     );
   }
 }
-
-// Row(
-//             mainAxisAlignment: MainAxisAlignment.spaceAround,
-//             children: [
-//               Button(
-//                 context: context,
-//                 label: "Resend",
-//                 size: const Size(143, 45),
-//                 onTap: () => _onTap(context),
-//               ),
-//               Button(
-//                 context: context,
-//                 label: "Cancel",
-//                 size: const Size(143, 45),
-//                 onTap: () => _onTap(context),
-//               ),
-//             ],
-//           ),
