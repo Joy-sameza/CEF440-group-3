@@ -222,14 +222,14 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                 onTap: () {
                                   if (_formKey.currentState!.validate()) {
                                     _formKey.currentState!.save();
+                                    context.push(
+                                      '/home/navigation_page',
+                                      extra: <String, String>{
+                                        'from': fromDestination!,
+                                        'to': toDestination!,
+                                      },
+                                    );
                                   }
-                                  context.push(
-                                    '/home/navigation_page',
-                                    extra: <String, String>{
-                                      'from': fromDestination!,
-                                      'to': toDestination!,
-                                    },
-                                  );
                                 },
                                 context: context,
                                 label: 'Navigate',
