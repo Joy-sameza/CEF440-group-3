@@ -4,6 +4,7 @@ import 'package:cam_we_go/core/extensions.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/utils/constants.dart';
+import '../../core/theme/colors.dart';
 
 class Sam extends StatefulWidget {
   const Sam({super.key, this.dy});
@@ -83,7 +84,7 @@ class Button extends StatelessWidget {
     required FutureOr<void> Function() onTap,
     required BuildContext context,
     required String label,
-    required Icon icon,
+    required Widget icon,
     required Gap gap,
     Color? backgroundColor,
     Color? foregroundColor,
@@ -109,6 +110,33 @@ class Button extends StatelessWidget {
           icon,
           SizedBox(width: gap.narrow),
           Text(label),
+        ],
+      ),
+    );
+  }
+
+  static ElevatedButton outlinedBorderWithIcon({
+    required VoidCallback onTap,
+    required String label,
+    required Icon icon,
+  }) {
+    return ElevatedButton(
+      onPressed: onTap,
+      style: ElevatedButton.styleFrom(
+        foregroundColor: Colors.black,
+        backgroundColor: Colors.black.withOpacity(0),
+        shape: const RoundedRectangleBorder(
+          side: BorderSide(color: normal)
+        )
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            label,
+            style: const TextStyle(fontSize: 14),
+          ),
+          icon,
         ],
       ),
     );
@@ -144,8 +172,9 @@ class InputField {
     required String label,
     required String hintText,
     String? Function(String?)? validator,
-    required InputType type,
+    TextEditingController? controller,
     void Function(String?)? onSaved,
+    required InputType type,
     String? initialValue,
     bool isFinal = false,
     bool readOnly = false,
