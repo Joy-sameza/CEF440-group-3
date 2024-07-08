@@ -46,6 +46,7 @@
 		<key>UIApplicationSupportsIndirectInputEvents</key>
 		<true/>
 		<key>UIStatusBarHidden</key>
+		<key>NSLocationWhenInUseUsageDescription</key>
 		<false/>
 	</dict>
 </plist>
