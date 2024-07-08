@@ -46,13 +46,58 @@ class NavigationPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 5),
-                  Row(
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.cancel_outlined, color: Colors.white),
-                        onPressed: () => context.pop(),
-                      ),
-                    ],
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 3.w),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.cancel_outlined,
+                              color: Colors.white),
+                          onPressed: () => context.pop(),
+                        ),
+                        GestureDetector(
+                          onTap: () => context
+                              .push('/search_view_road_signs/road_sign_info'),
+                          child: Row(
+                            children: [
+                              Container(
+                                height: 5.w,
+                                width: 5.w,
+                                color: Colors.white,
+                              ),
+                              const SizedBox(width: 5),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Stop Sign Ahead',
+                                    style: context.textTheme.bodyLarge!
+                                        .copyWith(color: Colors.white),
+                                  ),
+                                  Text(
+                                    'Distance: 200 m',
+                                    style: context.textTheme.bodyLarge!
+                                        .copyWith(color: Colors.white),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        IconButton(
+                          icon: const Icon(
+                            Icons.alt_route,
+                            color: Colors.white,
+                            size: 30,
+                          ),
+                          onPressed: () =>
+                              context.push('/home/more_route_details'),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),

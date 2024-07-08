@@ -9,6 +9,7 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    GlobalKey<FormState> formKey = GlobalKey(debugLabel: 'loginForm');
     return Scaffold(
       body: Column(
         children: [
@@ -25,25 +26,26 @@ class Login extends StatelessWidget {
           //   height: 5.4.h,
           // ),
           Form(
+              key: formKey,
               child: Column(
-            children: [
-              InputField.text(
-                context: context,
-                label: "Username",
-                hintText: "",
-                type: InputType.text,
-              ),
-              // SizedBox(
-              //   height: 3.2.h,
-              // ),
-              InputField.text(
-                context: context,
-                label: "Password",
-                hintText: "",
-                type: InputType.password,
-              ),
-            ],
-          )),
+                children: [
+                  InputField.text(
+                    context: context,
+                    label: "Username",
+                    hintText: "",
+                    type: InputType.text,
+                  ),
+                  // SizedBox(
+                  //   height: 3.2.h,
+                  // ),
+                  InputField.text(
+                    context: context,
+                    label: "Password",
+                    hintText: "",
+                    type: InputType.password,
+                  ),
+                ],
+              )),
           // SizedBox(
           //   height: 1.1.h,
           // ),
@@ -87,14 +89,16 @@ class Login extends StatelessWidget {
           // SizedBox(
           //   height: 6.9.h,
           // ),
-          Row(children: [
-            const Text("Don't have an account?"),
-            Text(
-              "register",
-              style: context.textTheme.bodyMedium!
-                  .copyWith(fontWeight: FontWeight.bold),
-            ),
-          ])
+          Row(
+            children: [
+              const Text("Don't have an account?"),
+              Text(
+                "register",
+                style: context.textTheme.bodyMedium!
+                    .copyWith(fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
         ],
       ),
     );
