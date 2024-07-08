@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/extensions.dart';
+import '../../../../widgets/maps.dart';
 
 class NavigationPage extends StatelessWidget {
   const NavigationPage({super.key});
@@ -12,11 +13,21 @@ class NavigationPage extends StatelessWidget {
         GoRouterState.of(context).extra as Map<String, String>;
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton.small(
+        onPressed: () {},
+        shape: const CircleBorder(),
+        child: const Icon(Icons.volume_off_outlined),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
       body: SafeArea(
         child: Stack(
           alignment: Alignment.bottomCenter,
           children: [
-            const Placeholder(),
+            Maps(
+              from: destinations['from']!,
+              to: destinations['to']!,
+            ),
             Container(
               height: 5.h,
               width: double.infinity,
@@ -34,6 +45,7 @@ class NavigationPage extends StatelessWidget {
               ),
               child: Column(
                 children: [
+                  SizedBox(height: 0.5.h),
                   Container(
                     width: 10.w,
                     height: 0.5.h,
@@ -45,9 +57,9 @@ class NavigationPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 5),
+                  SizedBox(height: 1.h),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 3.w),
+                    padding: EdgeInsets.symmetric(horizontal: 2.w),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -55,6 +67,7 @@ class NavigationPage extends StatelessWidget {
                           icon: const Icon(Icons.cancel_outlined,
                               color: Colors.white),
                           onPressed: () => context.pop(),
+                          iconSize: 40,
                         ),
                         GestureDetector(
                           onTap: () => context
@@ -91,10 +104,10 @@ class NavigationPage extends StatelessWidget {
                           icon: const Icon(
                             Icons.alt_route,
                             color: Colors.white,
-                            size: 30,
                           ),
                           onPressed: () =>
                               context.push('/home/more_route_details'),
+                          iconSize: 40,
                         ),
                       ],
                     ),

@@ -75,17 +75,17 @@ class Login extends StatelessWidget {
           // SizedBox(
           //   height: 5.3.h,
           // ),
-          Button.icon(
-            onTap: () async {
-              print('Start google login');
-              await Future.delayed(const Duration(seconds: 2));
-              context.go('/home');
-            },
-            context: context,
-            label: 'Google',
-            icon: AppIcons.buildSVG(AppIcons.googleLogo),
-            gap: Gap.narrow,
-          ),
+          // Button.icon(
+          //   onTap: () async {
+          //     print('Start google login');
+          //     await Future.delayed(const Duration(seconds: 2));
+          //     context.go('/home');
+          //   },
+          //   context: context,
+          //   label: 'Google',
+          //   icon: AppIcons.buildSVG(AppIcons.googleLogo),
+          //   gap: Gap.narrow,
+          // ),
           // SizedBox(
           //   height: 6.9.h,
           // ),
