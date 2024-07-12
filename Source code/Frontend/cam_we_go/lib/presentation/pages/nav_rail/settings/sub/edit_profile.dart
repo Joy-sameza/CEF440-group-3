@@ -1,9 +1,10 @@
 import 'package:cam_we_go/core/extensions.dart';
-import 'package:cam_we_go/core/utils/constants.dart';
+import 'package:cam_we_go/core/utils/constant.dart';
 import 'package:cam_we_go/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
+
+import '../../../../../core/utils/enum.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key});
@@ -21,115 +22,166 @@ class _EditProfileState extends State<EditProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Edit Profile"),
+        title: const Heading(title: "Edit Profile"),
+        backgroundColor: context.surfaceColor,
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-        child: Form(
-          key: formkey,
+        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 0),
+        child: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              InputField.text(
-                context: context,
-                label: "Username",
-                hintText: "",
-                onSaved: (value) {
-                  userName = value;
-                },
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Enter a user name';
-                  }
-                  if (value.length < 3) {
-                    return 'User name should be atleast 3 characters';
-                  }
-                  return null;
-                },
-                type: InputType.text,
-              ),
-              InputField.text(
-                context: context,
-                label: "Password",
-                hintText: "",
-                onSaved: (value) {
-                  password = value;
-                },
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Enter a password';
-                  }
-                  if (value.length < 6) {
-                    return 'Password should be atleast 6 characters';
-                  }
-                  return null;
-                },
-                type: InputType.password,
-              ),
-              InputField.text(
-                context: context,
-                label: "Email address",
-                hintText: "",
-                onSaved: (value) {
-                  email = value;
-                },
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Enter an email address';
-                  }
-                  final RegExp regexp = RegExp(r'^[a-zA-Z0-9_.±]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$');
-                  if (regexp.hasMatch(value)) {
-                    return 'Enter a valid email address';
-                  }
-                  return null;
-                },
-                type: InputType.email,
-              ),
-              InputField.text(
-                context: context,
-                label: "Mobile Number",
-                hintText: "",
-                onSaved: (value) {
-                  email = value;
-                },
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Enter a phone number';
-                  }
-                  final RegExp regexp = RegExp(r'^[62](3|[5-9])\d{7}$');
-                  if (regexp.hasMatch(value)) {
-                    return 'Enter a valid phone number';
-                  }
-                  return null;
-                },
-                type: InputType.phone,
-                isFinal: true,
-              ),
-              SizedBox(height: 0.2.h),
-              Row(
+            children: [
+              Column(
                 children: [
-                  Button(
-                    context: context,
-                    label: 'Cancel',
-                    size: ButtonSize.small,
-                    onTap: () {
-                      context.pop();
-                    },
+                  Stack(
+                    children: [
+                      CircleAvatar(
+                        radius: 10.w,
+                        child: Icon(
+                          Icons.account_circle_outlined,
+                          color: Colors.black.withOpacity(0.8),
+                          size: 20.w,
+                        ),
+                      ),
+                      Positioned(
+                        right: 2,
+                        bottom: 0,
+                        child: GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                            width: 5.w,
+                            height: 5.w,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: context.primaryColor,
+                            ),
+                            child: const Icon(Icons.camera_alt, size: 25),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                  Button(
-                    context: context,
-                    label: 'Save',
-                    size: ButtonSize.small,
-                    onTap: () {
-                      context.pop();
-                    },
+                  SizedBox(
+                    height: 1.0.h,
                   ),
+                  const Heading(title: 'Username')
                 ],
-              )
+              ),
+              SizedBox(
+                height: 1.5.h,
+              ),
+              Form(
+                key: formkey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    InputField.text(
+                      context: context,
+                      label: "Name",
+                      hintText: "",
+                      type: InputType.text,
+                    ),
+                    SizedBox(
+                      height: 1.5.h,
+                    ),
+                    InputField.text(
+                      context: context,
+                      label: "Email Address",
+                      hintText: "",
+                      type: InputType.email,
+                    ),
+                    SizedBox(
+                      height: 1.5.h,
+                    ),
+                    InputField.text(
+                      context: context,
+                      label: "Mobile Number",
+                      hintText: "",
+                      type: InputType.phone,
+                    ),
+                    SizedBox(
+                      height: 1.5.h,
+                    ),
+                    InputField.text(
+                      context: context,
+                      label: "Password",
+                      hintText: "",
+                      type: InputType.password,
+                      suffixIcon: const SuffixWidget(),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Enter a password';
+                        }
+                        if (!(value.length >= 8 && value.length <= 12)) {
+                          return 'Password should be between 8 and 12 characters';
+                        } else if (value.length >= 8 && value.length <= 12) {
+                          password = value;
+                          return null;
+                        }
+                        return null;
+                      },
+                      onSaved: (value) {
+                        password = value;
+                      },
+                      isFinal: true,
+                    ),
+                    SizedBox(height: 2.2.h),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Button.outlinedBorder(
+                          label: 'Cancel',
+                          size: ButtonSize.small,
+                          color: context.primaryColor,
+                          onTap: () {
+                            formkey.currentState!.reset();
+                            context.pop();
+                          },
+                        ),
+                        Button(
+                          context: context,
+                          label: 'Save',
+                          size: ButtonSize.small,
+                          onTap: () {
+                            if (!formkey.currentState!.validate()) return;
+                            formkey.currentState!.save();
+                            context.pop();
+                          },
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class SuffixWidget extends StatefulWidget {
+  const SuffixWidget({
+    super.key,
+  });
+
+  @override
+  State<SuffixWidget> createState() => _SuffixWidgetState();
+}
+
+class _SuffixWidgetState extends State<SuffixWidget> {
+  bool _obscureText = true;
+  void _toggle() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: _toggle,
+      icon: Icon(_obscureText ? Icons.visibility : Icons.visibility_off),
     );
   }
 }

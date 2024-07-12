@@ -14,7 +14,8 @@ const reportSchema = new Schema({
     },
     filelink: {
         type: String,
-        required: true
+        required: false,
+        unique: true
     },
     userId: {
         type: Schema.Types.ObjectId,

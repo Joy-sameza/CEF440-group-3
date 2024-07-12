@@ -7,6 +7,9 @@ ThemeData myTheme() {
   return ThemeData(
     primarySwatch: createMaterialColor(normal),
     colorScheme: themeModeScheme,
+    appBarTheme: const AppBarTheme(
+      backgroundColor: light,
+    ),
     buttonTheme: const ButtonThemeData(
       buttonColor: normal, // Default button color
       textTheme: ButtonTextTheme.primary,
@@ -71,6 +74,7 @@ ColorScheme lightTheme() {
     primaryContainer: normalHover,
     secondary: dark,
     secondaryContainer: darkHover,
+    tertiary: lightActive,
     surface: light,
     error: Colors.red,
     onPrimary: Colors.white,

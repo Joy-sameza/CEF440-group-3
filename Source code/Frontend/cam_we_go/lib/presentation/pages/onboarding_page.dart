@@ -1,5 +1,5 @@
 import 'package:cam_we_go/core/extensions.dart';
-import 'package:cam_we_go/core/utils/constants.dart';
+import 'package:cam_we_go/core/utils/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

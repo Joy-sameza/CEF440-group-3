@@ -1,8 +1,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
     <application
         android:label="Cam We-Go"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="${GMS_KEY}"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -20,15 +27,6 @@
               android:name="io.flutter.embedding.android.NormalTheme"
               android:resource="@style/NormalTheme"
               />
-            <!-- START: GOOGLE MAPS Stuff -->
-            <!-- API KEY -->
-            <meta-data android:name="com.google.android.geo.API_KEY"
-                android:value="AIzaSyADuP6tCcGnz5rCc_1YQnGPnJB-ZA9vALI"/>
-            <!-- API KEY -->
-            <!-- Location access-->
-            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-            <!-- Location access-->
-            <!-- START: GOOGLE MAPS Stuff -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>

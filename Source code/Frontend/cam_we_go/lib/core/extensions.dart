@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-import 'utils/constants.dart';
+import 'utils/enum.dart';
 
 extension ThemeExtension on BuildContext {
   ThemeData get theme => Theme.of(this);
@@ -16,6 +16,7 @@ extension ThemeExtension on BuildContext {
   Color get onSecondaryColor => colorScheme.onSecondary;
   Color get surfaceColor => colorScheme.surface;
   Color get onSurfaceColor => colorScheme.onSurface;
+  Color get tertiaryColor => colorScheme.tertiary;
   Color get surfaceDim => colorScheme.surfaceDim;
   Color get errorColor => colorScheme.error;
   Color get onErrorColor => colorScheme.onError;
