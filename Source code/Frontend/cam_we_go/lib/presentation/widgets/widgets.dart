@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:cam_we_go/core/extensions.dart';
 import 'package:flutter/material.dart';
 
-import '../../core/utils/constants.dart';
 import '../../core/theme/colors.dart';
+import '../../core/utils/enum.dart';
 
 class Sam extends StatefulWidget {
   const Sam({super.key, this.dy});
@@ -34,8 +34,6 @@ class _SamState extends State<Sam> with SingleTickerProviderStateMixin {
       curve: Curves.easeOut,
     ));
   }
-
-  
 
   @override
   void dispose() {
@@ -119,25 +117,58 @@ class Button extends StatelessWidget {
     required VoidCallback onTap,
     required String label,
     required Icon icon,
+    Size size = const Size(350, 45),
+    bool elevated = false,
+    bool centered = false,
   }) {
     return ElevatedButton(
       onPressed: onTap,
       style: ElevatedButton.styleFrom(
-        foregroundColor: Colors.black,
-        backgroundColor: Colors.black.withOpacity(0),
-        shape: const RoundedRectangleBorder(
-          side: BorderSide(color: normal)
-        )
-      ),
+          foregroundColor: Colors.black,
+          backgroundColor: Colors.transparent,
+          elevation: elevated ? 3 : 0,
+          fixedSize: size,
+          shape: const RoundedRectangleBorder(
+            side: BorderSide(color: normal),
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+          )),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: centered
+            ? MainAxisAlignment.center
+            : MainAxisAlignment.spaceBetween,
         children: [
           Text(
             label,
-            style: const TextStyle(fontSize: 14),
+            style: const TextStyle(fontSize: 16),
           ),
           icon,
         ],
+      ),
+    );
+  }
+
+  static ElevatedButton outlinedBorder({
+    required VoidCallback onTap,
+    required String label,
+    required Size size,
+    Color color = normalActive,
+    bool isElevated = false,
+  }) {
+    return ElevatedButton(
+      onPressed: onTap,
+      style: ElevatedButton.styleFrom(
+        side: BorderSide(color: color),
+        foregroundColor: Colors.black,
+        backgroundColor: const Color.fromRGBO(0, 0, 0, 0),
+        elevation: isElevated ? 3 : 0,
+        shape: const RoundedRectangleBorder(
+          side: BorderSide(color: normal),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        ),
+      ),
+      child: Text(
+        label,
+        style: const TextStyle(fontSize: 20),
       ),
     );
   }
@@ -172,10 +203,11 @@ class InputField {
     required String label,
     required String hintText,
     String? Function(String?)? validator,
-    TextEditingController? controller,
+    // TextEditingController? controller,
     void Function(String?)? onSaved,
     required InputType type,
     String? initialValue,
+    Widget? suffixIcon,
     bool isFinal = false,
     bool readOnly = false,
   }) {
@@ -194,14 +226,65 @@ class InputField {
         labelText: label,
         // hintText: hintText,
         floatingLabelBehavior: FloatingLabelBehavior.auto,
-        suffixIcon: type == InputType.password
-            ? const Icon(Icons.remove_red_eye)
-            : null,
+        suffixIcon: suffixIcon,
       ),
       readOnly: readOnly,
       onSaved: onSaved,
-      validator: validator,
+      validator: validator ?? (value) => customInputValidator(value, type),
     );
+  }
+}
+
+String? customInputValidator(String? value, InputType type) {
+  switch (type) {
+    case InputType.email:
+      if (value == null || value.isEmpty) {
+        return 'Enter an Email address';
+      }
+      final emailRegex =
+          RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
+      if (!emailRegex.hasMatch(value)) {
+        return 'Enter a valid email address';
+      }
+      return null;
+    case InputType.number:
+      if (value == null || value.isEmpty) {
+        return 'Enter a number';
+      }
+      if (!double.tryParse(value)!.isFinite) {
+        return 'Enter a valid number';
+      }
+      return null;
+    case InputType.password:
+      if (value == null || value.isEmpty) {
+        return 'Enter a password';
+      }
+      if (!(value.length >= 8 && value.length <= 12)) {
+        return 'Password should be between 8 and 12 characters';
+      }
+      return null;
+    case InputType.text:
+      if (value == null || value.isEmpty) {
+        return 'Enter a user name';
+      }
+      if (value.length < 3) {
+        return 'User name should be atleast 3 characters';
+      }
+      return null;
+    case InputType.report:
+      if (value == null || value.isEmpty) {
+        return 'Enter a report';
+      }
+      return null;
+    case InputType.phone:
+      if (value == null || value.isEmpty) {
+        return 'Enter a phone number';
+      }
+      final numRegex = RegExp(r'^[62][2-9]\d{7}$');
+      if (numRegex.hasMatch(value)) {
+        return 'Enter a valid phone number';
+      }
+      return null;
   }
 }
 

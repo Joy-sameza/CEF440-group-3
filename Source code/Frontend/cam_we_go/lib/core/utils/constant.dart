@@ -1,9 +1,15 @@
+import 'package:dotenv/dotenv.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../extensions.dart';
 
 abstract final class Constants {}
+
+final class AppTokens implements Constants {
+  static const String accessToken = 'accessToken';
+  static final env = DotEnv(includePlatformEnvironment: true)..load();
+}
 
 final class Images implements Constants {
   static const String logo = 'assets/images/logo.png';
@@ -43,6 +49,17 @@ final class AppIcons implements Constants {
   }
 }
 
-enum Gap { wide, narrow, normal }
+final class AppUrls implements Constants {
+  static const String geocodingUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
+  static const String reverseGeocodingUrl = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=';
+  static const String placesAPIUrl = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query='; // https://places.googleapis.com/v1/places/GyuEmsRBfy61i59si0?fields=addressComponents&key=YOUR_API_KEY
+  static final String mapsAPIKey = AppTokens.env['GOOGLE_MAPS_API_KEY'] ?? '';
 
-enum InputType { password, text, number, email, report, phone }
+  String geocode(String address) {
+    return '$geocodingUrl$address&key=$mapsAPIKey';
+  }
+
+  String reverseGeocode(double latitude, double longitude) {
+    return '$reverseGeocodingUrl$latitude,$longitude&key=$mapsAPIKey';
+  }
+}

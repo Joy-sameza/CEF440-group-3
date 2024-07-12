@@ -1,123 +1,189 @@
 import 'package:flutter/material.dart';
-import '../../../core/utils/constants.dart';
+import '../../../core/utils/constant.dart';
+import '../../../core/utils/enum.dart';
 import '../../widgets/widgets.dart';
 import '../../../core/extensions.dart';
 import 'package:go_router/go_router.dart';
 
-class Register extends StatelessWidget {
+class Register extends StatefulWidget {
   const Register({super.key});
 
   @override
+  State<Register> createState() => _RegisterState();
+}
+
+class _RegisterState extends State<Register> {
+  @override
   Widget build(BuildContext context) {
+    GlobalKey<FormState> formKey = GlobalKey(debugLabel: 'Register');
+    String? password;
     return Scaffold(
-      body: Column(
-        children: [
-          Image.asset(Images.logo),
-          SizedBox(
-            height: 2.h,
-          ),
-          const Text("Enter your details to register"),
-          SizedBox(
-            height: 3.8.h,
-          ),
-          Form(
-              child: Column(
+      body: Padding(
+        padding: EdgeInsets.all(1.96.w).copyWith(top: 0),
+        child: SingleChildScrollView(
+          child: Column(
             children: [
-              InputField.text(
-                context: context,
-                label: "Username",
-                hintText: "",
-                type: InputType.text,
-              ),
-              SizedBox(
-                height: 3.2.h,
-              ),
-              InputField.text(
-                context: context,
-                label: "Email Address",
-                hintText: "",
-                type: InputType.text,
-              ),
-              SizedBox(
-                height: 3.2.h,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+              Stack(
+                clipBehavior: Clip.none,
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: context.primaryContainer,
-                        width: 1.0,
-                      ),
-                      // border: BoxBorde/r
-                    ),
-                    child: Row(
-                      children: [AppIcons.buildSVG(AppIcons.cameroonFlag),
-                        const Text("237"),
-                      ],
-                    ),
+                  Image.asset(
+                    Images.logo,
+                    width: 18.13.w,
+                    height: 15.475.h,
                   ),
-                  // Button(
-                  //   context: context,
-                  //   label: "",
-                  //   size: const Size(143, 45),
-                  //   onTap: () => _onTap(context),
-                  // ),
-                  InputField.text(
-                    context: context,
-                    label: "Mobile Number",
-                    hintText: "",
-                    type: InputType.phone,
+                  Positioned(
+                    top: 12.h,
+                    left: -1.1.w,
+                    width: 58.87.w,
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: Text(
+                        "Enter your details to Register",
+                        style: context.textTheme.bodyLarge,
+                      ),
+                    ),
                   ),
                 ],
               ),
-              InputField.text(
-                context: context,
-                label: "Password",
-                hintText: "",
-                type: InputType.text,
+              //
+              Form(
+                key: formKey,
+                child: Column(
+                  children: [
+                    InputField.text(
+                      context: context,
+                      label: "Name",
+                      hintText: "",
+                      type: InputType.text,
+                    ),
+                    SizedBox(
+                      height: 0.5.h,
+                    ),
+                    InputField.text(
+                      context: context,
+                      label: "Email Address",
+                      hintText: "",
+                      type: InputType.email,
+                    ),
+                    SizedBox(
+                      height: 0.5.h,
+                    ),
+                    InputField.text(
+                      context: context,
+                      label: "Mobile Number",
+                      hintText: "",
+                      type: InputType.phone,
+                    ),
+                    SizedBox(
+                      height: 0.5.h,
+                    ),
+                    InputField.text(
+                      context: context,
+                      label: "Password",
+                      hintText: "",
+                      type: InputType.password,
+                      suffixIcon: const SuffixWidget(),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Enter a password';
+                        }
+                        if (!(value.length >= 8 && value.length <= 12)) {
+                          return 'Password should be between 8 and 12 characters';
+                        } else if (value.length >= 8 && value.length <= 12) {
+                          password = value;
+                          return null;
+                        }
+                        return null;
+                      },
+                      onSaved: (value) {
+                        password = value;
+                      },
+                    ),
+                    SizedBox(
+                      height: 0.5.h,
+                    ),
+                    InputField.text(
+                      context: context,
+                      label: "Confirm Password",
+                      hintText: "",
+                      type: InputType.password,
+                      suffixIcon: const SuffixWidget(),
+                      validator: (value) {
+                        if (value != password) {
+                          return 'Passwords do not match';
+                        }
+                        return null;
+                      },
+                      isFinal: true,
+                    ),
+                  ],
+                ),
               ),
               SizedBox(
-                height: 3.2.h,
-              ),
-              InputField.text(
-                context: context,
-                label: "Confirm Password",
-                hintText: "",
-                type: InputType.text,
+                height: 1.5.h,
               ),
               Button(
                 context: context,
                 label: "Signup",
-                size: const Size(143, 45),
+                size: const Size(350, 45),
                 onTap: () async {
-                  print('Verify login details with the server');
-                  await Future.delayed(const Duration(seconds: 2));
+                  if (!formKey.currentState!.validate()) return;
+                  formKey.currentState!.save();
                   context.go('/home');
                 },
               ),
               SizedBox(
-                height: 3.2.h,
+                height: 2.h,
               ),
-              Row(children: [
-                const Text("Already have an account?"),
-                TextButton(
-                  onPressed: () {
-                    context.push('/login');
-                  },
-                  child: const Text("Login"),
-                ),
-                Text(
-                  "register",
-                  style: context.textTheme.bodyMedium!
-                      .copyWith(fontWeight: FontWeight.bold),
-                ),
-              ])
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text("Already have an account?"),
+                  Center(
+                    child: TextButton(
+                      onPressed: () {
+                        context.pushReplacement('/login');
+                      },
+                      child: Text(
+                        "Login",
+                        style: context.textTheme.bodyMedium!.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: context.primaryColor),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ],
-          ))
-        ],
+          ),
+        ),
       ),
+    );
+  }
+}
+
+class SuffixWidget extends StatefulWidget {
+  const SuffixWidget({
+    super.key,
+  });
+
+  @override
+  State<SuffixWidget> createState() => _SuffixWidgetState();
+}
+
+class _SuffixWidgetState extends State<SuffixWidget> {
+  bool _obscureText = true;
+  void _toggle() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: _toggle,
+      icon: Icon(_obscureText ? Icons.visibility : Icons.visibility_off),
     );
   }
 }

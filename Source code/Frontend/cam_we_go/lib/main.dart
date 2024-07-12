@@ -1,7 +1,8 @@
-import 'package:cam_we_go/core/router.dart';
-import 'package:cam_we_go/core/theme/colors.dart';
-import 'package:cam_we_go/core/theme/theme.dart';
 import 'package:flutter/material.dart';
+
+import 'core/router.dart';
+import 'core/theme/colors.dart';
+import 'core/theme/theme.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -9,7 +10,6 @@ void main() {
 }
 
 class CamWeGo extends StatelessWidget {
-
   const CamWeGo({super.key});
 
   @override
@@ -17,7 +17,7 @@ class CamWeGo extends StatelessWidget {
     return MaterialApp.router(
       color: createMaterialColor(normal),
       debugShowCheckedModeBanner: false,
-      title: 'CAM WE-GO',
+      title: 'Cam We-Go',
       theme: myTheme(),
       routerDelegate: router.routerDelegate,
       routeInformationParser: router.routeInformationParser,

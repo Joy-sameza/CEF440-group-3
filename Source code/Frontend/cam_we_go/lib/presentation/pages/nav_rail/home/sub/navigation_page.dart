@@ -24,10 +24,7 @@ class NavigationPage extends StatelessWidget {
         child: Stack(
           alignment: Alignment.bottomCenter,
           children: [
-            Maps(
-              from: destinations['from']!,
-              to: destinations['to']!,
-            ),
+            const HomeMap(),
             Container(
               height: 5.h,
               width: double.infinity,
@@ -57,7 +54,7 @@ class NavigationPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 1.h),
+                  SizedBox(height: 0.5.h),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 2.w),
                     child: Row(
@@ -75,8 +72,8 @@ class NavigationPage extends StatelessWidget {
                           child: Row(
                             children: [
                               Container(
-                                height: 5.w,
-                                width: 5.w,
+                                height: 4.w,
+                                width: 4.w,
                                 color: Colors.white,
                               ),
                               const SizedBox(width: 5),
