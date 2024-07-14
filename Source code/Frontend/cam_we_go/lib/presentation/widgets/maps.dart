@@ -66,13 +66,17 @@ class _HomeMapState extends State<HomeMap> {
                   snippet: 'You were here',
                 ),
                 icon: BitmapDescriptor.defaultMarkerWithHue(
-                  BitmapDescriptor.hueRed,
+                  BitmapDescriptor.hueBlue,
                 ),
               ));
             }
+            return null;
           });
         }
       });
+    }).catchError((e) {
+      debugPrint(e.toString());
+      return null;
     });
   }
 

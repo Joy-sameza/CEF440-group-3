@@ -4,6 +4,7 @@ import 'package:cam_we_go/core/extensions.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/theme/colors.dart';
+import '../../core/utils/constant.dart';
 import '../../core/utils/enum.dart';
 
 class Sam extends StatefulWidget {
@@ -234,6 +235,55 @@ class InputField {
     );
   }
 }
+
+class OutinedBorderedContainer extends StatelessWidget {
+  const OutinedBorderedContainer({super.key, required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        border: Border.fromBorderSide(BorderSide(color: normal)),
+      ),
+      child: child,
+    );
+  }
+}
+
+class IconWithLabel extends StatelessWidget {
+  const IconWithLabel(
+      {super.key, required this.icon, required this.label, this.color});
+
+  final IconData icon;
+  final String label;
+  final Color? color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(
+          icon,
+          color: color ?? context.primaryColor,
+          applyTextScaling: true,
+        ),
+        SizedBox(width: 1.w),
+        Text(
+          label,
+          style: context.textTheme.bodyLarge!.copyWith(
+            color: color ?? context.primaryColor,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 
 String? customInputValidator(String? value, InputType type) {
   switch (type) {

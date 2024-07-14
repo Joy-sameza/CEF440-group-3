@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dotenv/dotenv.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -13,6 +15,7 @@ final class AppTokens implements Constants {
 
 final class Images implements Constants {
   static const String logo = 'assets/images/logo.png';
+
   static const String introductionImage ='assets/images/introduction_image.png';
 }
 
@@ -50,9 +53,13 @@ final class AppIcons implements Constants {
 }
 
 final class AppUrls implements Constants {
-  static const String geocodingUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
-  static const String reverseGeocodingUrl = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=';
-  static const String placesAPIUrl = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query='; // https://places.googleapis.com/v1/places/GyuEmsRBfy61i59si0?fields=addressComponents&key=YOUR_API_KEY
+  static final String serverUrl = AppTokens.env['SERVER_URL'] ?? '';
+  static const String geocodingUrl =
+      'https://maps.googleapis.com/maps/api/geocode/json?address=';
+  static const String reverseGeocodingUrl =
+      'https://maps.googleapis.com/maps/api/geocode/json?latlng=';
+  static const String placesAPIUrl =
+      'https://maps.googleapis.com/maps/api/place/textsearch/json?query='; // https://places.googleapis.com/v1/places/GyuEmsRBfy61i59si0?fields=addressComponents&key=YOUR_API_KEY
   static final String mapsAPIKey = AppTokens.env['GOOGLE_MAPS_API_KEY'] ?? '';
 
   String geocode(String address) {
