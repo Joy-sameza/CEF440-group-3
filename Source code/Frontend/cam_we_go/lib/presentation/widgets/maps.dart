@@ -181,11 +181,24 @@ class _HomeMapState extends State<HomeMap> {
   }
 
   Widget buildBottomSheetContent(
-      double height,
-      BuildContext context,
-      GlobalKey<FormState> formKey,
-      String fromDestination,
-      String? toDestination) {
+    double height,
+    BuildContext context,
+    GlobalKey<FormState> formKey,
+    String fromDestination,
+    String? toDestination,
+  ) {
+    void validateAndSubmit() {
+      if (!formKey.currentState!.validate()) return;
+      formKey.currentState!.save();
+      context.push(
+        '/home/more_route_details',
+        extra: <String, String>{
+          'from': fromDestination!,
+          'to': toDestination!,
+        },
+      );
+    }
+
     return SingleChildScrollView(
       child: SizedBox(
         height: height,
@@ -280,19 +293,7 @@ class _HomeMapState extends State<HomeMap> {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Button.icon(
-                              onTap: () {
-                                if (formKey.currentState!.validate()) {
-                                  formKey.currentState!.save();
-                                  context.push(
-                                    '/home/more_route_details',
-                                    extra: <String, String>{
-                                      'from': fromDestination!,
-                                      'to': toDestination!,
-                                    },
-                                  );
-                                }
-                                return;
-                              },
+                              onTap: validateAndSubmit,
                               context: context,
                               label: 'Route Info',
                               icon: const Icon(Icons.info_outline),
@@ -300,18 +301,7 @@ class _HomeMapState extends State<HomeMap> {
                               foregroundColor: Colors.white,
                             ),
                             Button.icon(
-                              onTap: () {
-                                if (formKey.currentState!.validate()) {
-                                  formKey.currentState!.save();
-                                  context.push(
-                                    '/home/navigation_page',
-                                    extra: <String, String>{
-                                      'from': fromDestination!,
-                                      'to': toDestination!,
-                                    },
-                                  );
-                                }
-                              },
+                              onTap: validateAndSubmit,
                               context: context,
                               label: 'Navigate',
                               icon: const Icon(Icons.navigation_outlined),

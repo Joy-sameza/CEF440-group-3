@@ -38,7 +38,7 @@ extension MediaQueryExtension on BuildContext {
 
 extension AdaptiveExt on num {
   double get h =>
-      this <= 100 && this >= 0 ? this * _Adaptive.height / 100 : toDouble();
+      this <= 100 && this >= 0 ? this * _Adaptive.actualScreenHeight / 100 : toDouble();
   double get w =>
       this <= 100 && this >= 0 ? this * _Adaptive.width / 100 : toDouble();
   double get dp => this * _Adaptive.devicePixelRatio;
@@ -48,6 +48,9 @@ class _Adaptive {
   static double width = window.physicalSize.width;
   static double height = window.physicalSize.height;
   static double devicePixelRatio = window.devicePixelRatio;
+  static double statusBarHeight = window.padding.top;
+  static double bottomBarHeight = window.padding.bottom;
+  static double actualScreenHeight = height - statusBarHeight - bottomBarHeight;
 }
 
 extension GapSize on Gap {

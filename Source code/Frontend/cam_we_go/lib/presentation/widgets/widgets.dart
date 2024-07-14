@@ -4,7 +4,6 @@ import 'package:cam_we_go/core/extensions.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/theme/colors.dart';
-import '../../core/utils/constant.dart';
 import '../../core/utils/enum.dart';
 
 class Sam extends StatefulWidget {
