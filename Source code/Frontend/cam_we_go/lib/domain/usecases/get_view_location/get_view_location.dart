@@ -23,6 +23,7 @@ class GetViewLocation {
   }
 
   Future<bool> _verifyPermissionAndAccess() async {
+
     bool serviceEnabled = await Location().serviceEnabled();
     if (!serviceEnabled) {
       serviceEnabled = await Location().requestService();

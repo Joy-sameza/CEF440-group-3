@@ -284,6 +284,7 @@ class IconWithLabel extends StatelessWidget {
   }
 }
 
+
 String? customInputValidator(String? value, InputType type) {
   switch (type) {
     case InputType.email:
