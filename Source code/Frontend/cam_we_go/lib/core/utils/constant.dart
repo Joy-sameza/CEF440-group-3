@@ -15,8 +15,8 @@ final class AppTokens implements Constants {
 
 final class Images implements Constants {
   static const String logo = 'assets/images/logo.png';
-  static const String introductionImage =
-      'assets/images/introduction_image.png';
+
+  static const String introductionImage ='assets/images/introduction_image.png';
 }
 
 final class ButtonSize implements Constants {
