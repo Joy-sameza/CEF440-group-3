@@ -186,6 +186,8 @@ class _HomeMapState extends State<HomeMap> {
       GlobalKey<FormState> formKey,
       String fromDestination,
       String? toDestination) {
+        print('App height: ${MediaQuery.of(context).size.height}');
+        print('App height 2: ${100.h}');
     return SingleChildScrollView(
       child: SizedBox(
         height: height,

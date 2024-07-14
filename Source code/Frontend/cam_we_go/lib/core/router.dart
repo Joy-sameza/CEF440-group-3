@@ -79,8 +79,10 @@ final GoRouter router = GoRouter(
             GoRoute(
               path: 'road_sign_info',
               parentNavigatorKey: _rootNavigatorKey,
-              pageBuilder: (context, state) =>
-                  customSlideInTransition(state, const RoadSignInfo()),
+              pageBuilder: (context, state) {
+                final Map<String, String> pathParams = state.uri.queryParameters;
+                return customSlideInTransition(state, RoadSignInfo(roadSignId: pathParams['id']!));
+              },
             ),
             GoRoute(
               path: 'road_state_info',
